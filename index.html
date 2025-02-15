@@ -13,6 +13,7 @@
       left: 0;
       width: 100%;
       margin: 0;
+      pointer-events: auto;
     }
     .modal-content {
       border-radius: 15px 15px 0 0;
@@ -30,15 +31,27 @@
       font-weight: bold;
       padding: 8px;
     }
+    /* Remove dark background */
+    .modal-backdrop {
+      display: none !important;
+    }
+    /* Large input box */
+    #triggerInput {
+      width: 80%;
+      height: 60px;
+      font-size: 20px;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
   </style>
 </head>
 <body class="text-center mt-5">
 
-  <!-- Textbox to Trigger Modal -->
-  <input type="text" id="triggerInput" class="form-control w-50 mx-auto" placeholder="Start typing or select an option...">
+  <!-- Large Input Box to Trigger Modal -->
+  <input type="text" id="triggerInput" class="form-control mx-auto" placeholder="Start typing or select an option...">
 
   <!-- Bootstrap Bottom Modal -->
-  <div class="modal fade bottom-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade bottom-modal show" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
@@ -57,19 +70,36 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const inputField = document.getElementById("triggerInput");
-      const modal = new bootstrap.Modal(document.getElementById("exampleModal"));
+      const modal = document.getElementById("exampleModal");
       const buttons = document.querySelectorAll(".keyboard-btn");
 
-      // Open modal when user types something in the input field
-      inputField.addEventListener("input", function () {
-        modal.show();
-      });
+      // Show modal manually without backdrop
+      function showModal() {
+        modal.style.display = "block";
+        modal.classList.add("show");
+      }
+
+      // Hide modal manually
+      function hideModal() {
+        modal.style.display = "none";
+        modal.classList.remove("show");
+      }
+
+      // Open modal when user types in the input field
+      inputField.addEventListener("input", showModal);
 
       // Insert button text into input field when clicked
       buttons.forEach(button => {
         button.addEventListener("click", function () {
           inputField.value += this.textContent + " "; // Append text to input field
         });
+      });
+
+      // Hide modal when clicking outside
+      document.addEventListener("click", function (event) {
+        if (!modal.contains(event.target) && event.target !== inputField) {
+          hideModal();
+        }
       });
     });
   </script>
