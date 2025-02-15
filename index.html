@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtual Keyboard</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-keyboard/build/css/index.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2>Virtual Keyboard</h2>
+
+  <textarea id="text-input" placeholder="Type here..." rows="4"></textarea>
+
+  <select id="layout-selector">
+    <option value="default">Default</option>
+    <option value="numeric">Numeric</option>
+    <option value="azerty">AZERTY</option>
+  </select>
+
+  <div id="keyboard-container"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/simple-keyboard/build/index.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
