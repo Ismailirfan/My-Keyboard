@@ -26,15 +26,16 @@
     .modal-body button {
       flex: 1;
       margin: 5px;
-      font-size: 16px;
+      font-size: 12px; /* Smaller font size */
       font-weight: bold;
+      padding: 8px;
     }
   </style>
 </head>
 <body class="text-center mt-5">
 
   <!-- Textbox to Trigger Modal -->
-  <input type="text" id="triggerInput" class="form-control w-50 mx-auto" placeholder="Start typing to open keyboard...">
+  <input type="text" id="triggerInput" class="form-control w-50 mx-auto" placeholder="Start typing or select an option...">
 
   <!-- Bootstrap Bottom Modal -->
   <div class="modal fade bottom-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -42,9 +43,9 @@
       <div class="modal-content">
         <div class="modal-body">
           <!-- Three Buttons with Your Labels -->
-          <button id="btn1" class="btn btn-primary">My Choice</button>
-          <button id="btn2" class="btn btn-secondary">My Selection</button>
-          <button id="btn3" class="btn btn-success">My Desire</button>
+          <button class="btn btn-primary keyboard-btn">My Choice</button>
+          <button class="btn btn-secondary keyboard-btn">My Selection</button>
+          <button class="btn btn-success keyboard-btn">My Desire</button>
         </div>
       </div>
     </div>
@@ -57,23 +58,18 @@
     document.addEventListener("DOMContentLoaded", function () {
       const inputField = document.getElementById("triggerInput");
       const modal = new bootstrap.Modal(document.getElementById("exampleModal"));
+      const buttons = document.querySelectorAll(".keyboard-btn");
 
       // Open modal when user types something in the input field
       inputField.addEventListener("input", function () {
         modal.show();
       });
 
-      // Button actions
-      document.getElementById("btn1").addEventListener("click", function () {
-        alert("You chose: My Choice");
-      });
-
-      document.getElementById("btn2").addEventListener("click", function () {
-        alert("You chose: My Selection");
-      });
-
-      document.getElementById("btn3").addEventListener("click", function () {
-        alert("You chose: My Desire");
+      // Insert button text into input field when clicked
+      buttons.forEach(button => {
+        button.addEventListener("click", function () {
+          inputField.value += this.textContent + " "; // Append text to input field
+        });
       });
     });
   </script>
